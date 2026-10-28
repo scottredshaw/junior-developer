@@ -1,13 +1,34 @@
 import Image from "next/image";
 import { Suspense } from "react";
 
+
 import Content from "@/components/Content";
 
 async function ContentList() {
-  // TODO: Fetch the data from the backend (http://localhost:8000/data)
+  try {
+      const response = await fetch("http://localhost:8000/data");
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+      const data = await response.json();
 
-  // Each piece of content in the list should have its own Content component
-  return <Content />;
+      return (
+        <>
+          {data.map((item, index) => (
+            <Content
+              key={index}
+              category={item.category}
+              question={item.question}
+              sources={item.sources}
+              content={item.content}
+            />
+          ))}
+        </>
+      );
+    }
+    catch (error) {
+      console.error("Error fetching JSON:", error);
+    }
 }
 
 export default function Home() {
