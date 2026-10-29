@@ -2,6 +2,7 @@ type Source = {
   id: number;
   title: string;
   source: string;
+  favicon_url: string;
 };
 
 type ContentProps = {
@@ -35,16 +36,22 @@ export default function Content({ category, question, sources, content }: Conten
       <h2>
         Links:
       </h2>
-      <ul>
+      <ul><b><i>
         {/* Looping through all sources and create a link */}
         {sources.map((source) => (
-          <li key={source.id}>
-            <a href={source.source}>
-              {source.title}
-            </a>
-          </li>
+            <li key={source.id}>
+              <a href={source.source}>
+                {source.title}
+              </a>
+              <img
+                src={source.favicon_url}
+                alt=""
+                width={20}
+                height={20}
+              />
+            </li>
         ))}
-      </ul>
+      </i></b></ul>
 
       <h2>
         Content:

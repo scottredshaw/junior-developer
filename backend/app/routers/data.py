@@ -69,11 +69,13 @@ def redact_phone(sentence: str) -> str:
     return re.sub(r"\b\d[\d ]{3,}\d\b", "[PHONE]", sentence)
 
 def add_links(content: str, sources: list[Source]) -> str:
-    """Method to add links from source class to the content given the id """
+    """Method to add links from source class to the content given the id.
+       Making links be bold and italic
+    """
     for source in sources:
         if source.id in content:
             link = (
-                f'<a href="{source.source}">{source.title}</a>'
+                f'<i><b><a href="{source.source}">{source.title}</a></b></i>'
             )
             content = content.replace(
                 f"<ref>{source.id}</ref>",
